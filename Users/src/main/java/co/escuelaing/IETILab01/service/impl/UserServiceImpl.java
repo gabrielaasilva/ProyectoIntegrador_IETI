@@ -1,10 +1,9 @@
-package src.main.java.co.escuelaing.IETILab01.service.impl;
+package co.escuelaing.IETILab01.service.impl;
 
-import co.escuelaing.IETILab01.*;
-import src.main.java.co.escuelaing.IETILab01.service.IUserService;
-import src.main.java.co.escuelaing.IETILab01.service.String;
-import src.main.java.co.escuelaing.IETILab01.service.User;
-import src.main.java.co.escuelaing.IETILab01.service.UserDto;
+import co.escuelaing.IETILab01.data.User;
+import co.escuelaing.IETILab01.dto.UserDTO;
+import co.escuelaing.IETILab01.service.IUserService;
+
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findById(String id) {
+        return null;
  
     }
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
         
         List<User> users = new ArrayList<>();
 
-        for (String id : usr.keyset()){
+        for (String id : usr.keySet()){
             users.add(usr.get(id));
         }
 
@@ -46,9 +46,10 @@ public class UserServiceImpl implements IUserService {
         
     }
 
+
     @Override
-    public User update(UserDto userDto, String userId) {
-    
+    public User update(UserDTO userDto, String userId) {
+        // TODO Auto-generated method stub
         return null;
     }
 
