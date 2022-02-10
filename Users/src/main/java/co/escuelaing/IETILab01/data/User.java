@@ -6,9 +6,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+@Document
 public class User {
+
+    @Id
     private String id;
     private String name;
+
+    @Indexed(unique = true)
     private String email;
     private String lastName;
     private String createdAt;

@@ -1,24 +1,26 @@
-package co.escuelaing.IETILab01.service.impl;
+package co.escuelaing.IETILab01.repository;
 
 import co.escuelaing.IETILab01.data.User;
 import co.escuelaing.IETILab01.dto.UserDTO;
 import co.escuelaing.IETILab01.service.IUserService;
-
-
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceMongoDB implements IUserService {
+    private final UserRepository userRepository;
     private final Map<String,User> usr = new ConcurrentHashMap<>();
+
+    public UserServiceMongoDB(@Autowired UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User create(User user) {
-        User newUsr = usr.put(user.getId(),user); 
+        User newUsr = usr.put(user.getId(),user);
         return newUsr;
     }
 
@@ -32,7 +34,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getAll() {
-        
         List<User> users = new ArrayList<>();
 
         for (String id : usr.keySet()){
@@ -45,9 +46,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void deleteById(String id) {
         usr.remove(id);
-        
-    }
 
+    }
 
     @Override
     public User update(UserDTO userDto, String userId) {
