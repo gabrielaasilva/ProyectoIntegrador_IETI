@@ -3,10 +3,8 @@ package co.escuelaing.IETILab01.controller;
 import co.escuelaing.IETILab01.data.User;
 import co.escuelaing.IETILab01.dto.UserDTO;
 import co.escuelaing.IETILab01.service.impl.UserServiceImpl;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
