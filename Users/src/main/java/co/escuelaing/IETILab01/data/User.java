@@ -1,5 +1,6 @@
 package co.escuelaing.IETILab01.data;
 
+import co.escuelaing.IETILab01.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +9,6 @@ import java.util.Date;
 
 @Document
 public class User {
-
     @Id
     private String id;
     private String name;
@@ -17,6 +17,12 @@ public class User {
     private String email;
     private String lastName;
     private String createdAt;
+
+    public User(UserDTO userDto){
+        this.email = userDto.getEmail();
+        this.lastName = userDto.getLastName();
+        this.createdAt = new Date().toString();
+    }
     
     public String getId() {
         return id;

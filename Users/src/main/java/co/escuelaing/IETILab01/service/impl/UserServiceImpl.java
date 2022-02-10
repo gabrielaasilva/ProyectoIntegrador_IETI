@@ -5,6 +5,7 @@ import co.escuelaing.IETILab01.dto.UserDTO;
 import co.escuelaing.IETILab01.service.IUserService;
 
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
+
+@Component
 public class UserServiceImpl implements IUserService {
     private final Map<String,User> usr = new ConcurrentHashMap<>();
 
@@ -43,9 +45,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void deleteById(String id) {
+    public Boolean deleteById(String id) {
         usr.remove(id);
-        
+        return usr.containsKey(id);
     }
 
 
