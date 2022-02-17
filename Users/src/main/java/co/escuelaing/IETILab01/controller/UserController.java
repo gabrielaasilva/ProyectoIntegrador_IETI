@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping ("/v1/user")
 public class UserController {
     private final UserServiceImpl userService;
 
