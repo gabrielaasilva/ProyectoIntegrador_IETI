@@ -33,6 +33,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return null;
+    }
+
+    @Override
     public List<User> getAll() {
         
         List<User> users = new ArrayList<>();
@@ -49,7 +54,6 @@ public class UserServiceImpl implements IUserService {
         usr.remove(id);
         return usr.containsKey(id);
     }
-
 
     @Override
     public User update(UserDTO userDto, String userId) {

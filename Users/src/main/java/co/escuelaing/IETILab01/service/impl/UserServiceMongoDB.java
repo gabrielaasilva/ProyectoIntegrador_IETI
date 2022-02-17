@@ -5,6 +5,7 @@ import co.escuelaing.IETILab01.dto.UserDTO;
 import co.escuelaing.IETILab01.repository.UserRepository;
 import co.escuelaing.IETILab01.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class UserServiceMongoDB implements IUserService {
 
     @Override
     public User create(User user) {
-        User newUsr = usr.put(user.getId(),user);
+        User newUsr = userRepository.save(user);
         return newUsr;
     }
 
@@ -33,6 +34,11 @@ public class UserServiceMongoDB implements IUserService {
             return usr.get(id);
         }
         return null;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+       return userRepository.findByEmail(email);
     }
 
     @Override
@@ -52,10 +58,13 @@ public class UserServiceMongoDB implements IUserService {
 
     @Override
     public User update(UserDTO userDto, String userId) {
-        if (usr.containsKey(userId)){
-            User user =usr.get(userDto);
+        if (usr.containsKey(userId)) {
+            User user = usr.get(userDto);
             return user;
-        }else {
+        }
+        //if (userDto.getPassword() != null) {
+            //passwordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());}
+        else {
             return null;
         }
     }

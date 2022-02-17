@@ -4,8 +4,10 @@ import co.escuelaing.IETILab01.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class User {
@@ -17,11 +19,14 @@ public class User {
     private String email;
     private String lastName;
     private String createdAt;
+    private String passwordHash;
+    private List<RoleEnum> roles;
 
     public User(UserDTO userDto){
         this.email = userDto.getEmail();
         this.lastName = userDto.getLastName();
         this.createdAt = new Date().toString();
+        this.passwordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
     }
     
     public String getId() {
@@ -54,7 +59,9 @@ public class User {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+    public List<RoleEnum> getRoles() { return roles;}
+    public void setRoles(List<RoleEnum> roles) {this.roles = roles;}
+    public String getPasswordHash() { return passwordHash;}
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash;}
 
-    
-    
 }
