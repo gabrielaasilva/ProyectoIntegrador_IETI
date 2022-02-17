@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 
 import javax.ws.rs.InternalServerErrorException;
 
-public class InvalidCredentialsException extends InternalServerErrorException
-{
+public class InvalidCredentialsException extends InternalServerErrorException {
+
+    ServerErrorResponseDto s;
     public InvalidCredentialsException() {
-        super(new ServerErrorResponseDto("User not found", ErrorCodeEnum.USER_NOT_FOUND, HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        super();
+        s = new ServerErrorResponseDto("User not found", ErrorCodeEnum.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 }
