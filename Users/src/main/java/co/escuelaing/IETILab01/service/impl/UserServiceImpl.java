@@ -6,11 +6,11 @@ import co.escuelaing.IETILab01.service.IUserService;
 
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -25,7 +25,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findById(String id) {
+    public Optional<User> findById(String id) {
         if (usr.containsKey(id)){
             return usr.get(id);
         }

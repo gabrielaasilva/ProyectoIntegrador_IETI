@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Optional;
 
 @Service
 public class UserServiceMongoDB implements IUserService {
     private final UserRepository userRepository;
-    private final Map<String,User> usr = new ConcurrentHashMap<>();
+
 
     public UserServiceMongoDB(@Autowired UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -29,11 +28,8 @@ public class UserServiceMongoDB implements IUserService {
     }
 
     @Override
-    public User findById(String id) {
-        if (usr.containsKey(id)){
-            return usr.get(id);
-        }
-        return null;
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
     @Override
@@ -43,27 +39,23 @@ public class UserServiceMongoDB implements IUserService {
 
     @Override
     public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        for (String id : usr.keySet()){
-            users.add(usr.get(id));
-        }
-        return users;
+        return userRepository.findAll();
     }
 
     @Override
     public Boolean deleteById(String id) {
-        usr.remove(id);
-        return usr.containsKey(id);
+        userRepository.deleteById(id);
+        if (userRepository.findById(id) == null){return true;}
+        return false;
     }
 
     @Override
     public User update(UserDTO userDto, String userId) {
-        if (usr.containsKey(userId)) {
-            User user = usr.get(userDto);
-            return user;
-        }
-        //if (userDto.getPassword() != null) {
-            //passwordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());}
+        User u = findById(userId);
+        u.update(userDto);
+        return userRepository.save(u);
+        if (userDto.getPassword() != null) {
+            passwordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());}
         else {
             return null;
         }
